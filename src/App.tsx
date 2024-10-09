@@ -1,10 +1,18 @@
 import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Home from './pages/Home'
+import Appointment from './pages/Appointment'
+import MainLayout from './components/MainLayout';
 
 function App() {
   return (
-    <Home />
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Appointment />} />
+        </Route>
+      </Routes>
+    </Router>
   )
 }
 
