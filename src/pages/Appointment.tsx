@@ -1,27 +1,47 @@
-import { Tabs, Tab } from '../components/Tabs';
+import { Dispatch, SetStateAction, useState } from "react";
 
-const Appointment = () => {
+import Card from "../components/Card";
+import { SESSIONS } from "../fixtures/appointmentData";
+import { SessionType } from "../types";
+import Calendar from "../components/Calendar";
+import Button from "../components/Button";
+import SessionDropdown from "../components/SessionDropdown";
+
+type Props = {
+  navigate: (newActiveTab: string) => () => void
+}
+type SetSession = Dispatch<SetStateAction<string>>
+
+const onSessionClick = (name: string, setSession: SetSession) => () => {
+  setSession(name)
+}
+
+const renderSessionItem = (session: SessionType, setSession: SetSession) => {
+  const { name, duration, price } = session
+
   return (
-    <div>
-      <Tabs>
-        <Tab label="Choose Appointment">
-          <div className="py-4">
-            <h2 className="mb-2 text-lg font-medium">Choose Appointment Content</h2>
-          </div>
-        </Tab>
-        <Tab label="Your Info">
-          <div className="py-4">
-            <h2 className="mb-2 text-lg font-medium">Your Info Content</h2>
-          </div>
-        </Tab>
-        <Tab label="Confirmation">
-          <div className="py-4">
-            <h2 className="mb-2 text-lg font-medium">Confirmation Content</h2>
-          </div>
-        </Tab>
-      </Tabs>
+    <div key={name} className="mt-2">
+      <Card onClick={onSessionClick(name, setSession)}>
+        <p>{name}</p>
+        <span>{duration} @ $ {price.toFixed(2)}</span>
+      </Card>
     </div>
-  );
-};
+  )
+}
 
-export default Appointment;
+const Appointment = ({ navigate }: Props) => {
+  const [session, setSession] = useState('');
+
+  return (
+    <div className="flex flex-col gap-3">
+      { !session
+        ? SESSIONS.map(session => renderSessionItem(session, setSession))
+        : <SessionDropdown data={SESSIONS} selectedData={session} setSelectedData={setSession} />
+      }
+      {session && <Calendar />}
+      <Button title="Continue >>" onClick={navigate('Your Info')} />
+    </div>
+  )
+}
+
+export default Appointment
