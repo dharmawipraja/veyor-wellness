@@ -1,8 +1,9 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, useMemo } from "react";
 
 type ButtonProps = {
   title: string;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  type?: "submit" | "reset" | "button";
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   variant?: 'PRIMARY' | 'SECONDARY';
 }
 
@@ -15,13 +16,17 @@ const getButtonStyles = (variant: string) => {
   return styleMapping[variant]
 }
 
-const Button = ({ title, onClick, variant = 'PRIMARY' }: ButtonProps) => {
+const Button = ({ title, type, onClick = () => {}, variant = 'PRIMARY' }: ButtonProps) => {
   const styles = getButtonStyles(variant);
 
-  return (
-    <button className={`${styles} w-32 p-2 rounded-md`} onClick={onClick}>
+  const renderButton = useMemo(() => (
+    <button type={type} className={`${styles} max-w-prose p-2 rounded-md`} onClick={onClick}>
       <span>{title}</span>
     </button>
+  ), [])
+
+  return (
+    renderButton
   )
 }
 

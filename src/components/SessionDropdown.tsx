@@ -33,7 +33,7 @@ const SessionDropdown: React.FC<Props> = ({ data, selectedData, setSelectedData 
   return (
     <div>
       <Card onClick={openDropdown(setIsDropdownOpen)}>
-        <p>{label?.name}</p>
+        <p className="font-semibold">{label?.name}</p>
         <span>{label?.duration} @ ${label?.price.toFixed(0)}</span>
       </Card>
       {isDropdownOpen && (
@@ -44,7 +44,7 @@ const SessionDropdown: React.FC<Props> = ({ data, selectedData, setSelectedData 
                   key={item.name}
                   onClick={onSelect(item.name, setSelectedData, setIsDropdownOpen)}
                   className="flex flex-col items-start w-full gap-2 p-4 transition-all duration-200 rounded hover:bg-gray-200">
-                  <p>{item.name}</p>
+                  <p className="font-semibold">{item.name}</p>
                   <span>{item.duration} @ ${item.price}</span>
                 </li>
               ))}

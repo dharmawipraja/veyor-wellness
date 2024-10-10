@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 
 import Card from "../components/Card";
 import { SESSIONS } from "../fixtures/appointmentData";
@@ -22,14 +22,14 @@ const renderSessionItem = (session: SessionType, setSession: SetSession) => {
   return (
     <div key={name} className="mt-2">
       <Card onClick={onSessionClick(name, setSession)}>
-        <p>{name}</p>
+        <p className="font-semibold">{name}</p>
         <span>{duration} @ $ {price.toFixed(2)}</span>
       </Card>
     </div>
   )
 }
 
-const Appointment = ({ navigate }: Props) => {
+const Appointment: React.FC<Props> = ({ navigate }) => {
   const [session, setSession] = useState('');
 
   return (

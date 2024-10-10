@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Tabs, Tab } from '../components/Tabs';
 import Appointment from './Appointment';
+import UserInformation from './UserInformation';
 
 const Home = () => {
-  const [activeTab, setActiveTab] = useState('Choose Appointment');
+  // const [activeTab, setActiveTab] = useState('Choose Appointment');
+  const [activeTab, setActiveTab] = useState('Your Info');
 
   const handleNavigate = (newActiveTab: string) => () => {
     setActiveTab(newActiveTab);
@@ -19,7 +21,7 @@ const Home = () => {
         </Tab>
         <Tab label="Your Info">
           <div className="py-4">
-            <h2 className="mb-2 text-lg font-medium">Your Info Content</h2>
+            <UserInformation navigate={handleNavigate} />
           </div>
         </Tab>
         <Tab label="Confirmation">
