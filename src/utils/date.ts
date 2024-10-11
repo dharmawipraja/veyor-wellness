@@ -31,3 +31,12 @@ export const getAvailableMonth = () => {
   
   return result;
 }
+
+export const formatDate = (date: any, withDayName: boolean = false) => {
+  const parts = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', weekday: 'long', day: 'numeric'}).formatToParts(date);
+  const formattedCustomDate = withDayName 
+    ? `${parts[0].value}, ${parts[2].value}, ${parts[4].value} ${parts[6].value}`
+    : `${parts[2].value}, ${parts[4].value} ${parts[6].value}`
+
+  return formattedCustomDate
+}

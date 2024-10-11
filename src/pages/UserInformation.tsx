@@ -2,6 +2,10 @@ import React from "react"
 import Button from "../components/Button"
 import Input from "../components/Input"
 import { useForm, UseFormGetValues } from "react-hook-form"
+import { useAppDispatch, useAppSelector } from "../hooks/useAppReducer";
+import { formatDate } from "../utils/date";
+import { AppDispatch } from "../store";
+import { saveuserInfo } from "../store/userInfoSlice";
 
 type Navigate = (newActiveTab: string) => () => void;
 type Props = {
@@ -14,12 +18,19 @@ type Inputs = {
   email: string;
 }
 
-const onSubmit = (getValues: UseFormGetValues<Inputs>, navigate: Navigate) => () => {
-  console.log('SUBMIT', getValues())
+const onSubmit = (dispatch: AppDispatch, getValues: UseFormGetValues<Inputs>, navigate: Navigate) => () => {
+  const data = getValues();
+
+  dispatch(saveuserInfo(data))
   navigate('Confirmation')()
 }
 
+const onBack = (navigate: Navigate) => () => {
+  navigate('Choose Appointment')()
+}
+
 const UserInformation: React.FC<Props> = ({ navigate }) => {
+  const dispatch = useAppDispatch();
   const {
     control,
     formState: { isValid },
@@ -34,24 +45,32 @@ const UserInformation: React.FC<Props> = ({ navigate }) => {
     },
     mode: "onChange",
   });
+  const { sessionType, date, time } = useAppSelector(state => state.appointment)
+  const formattedDate = formatDate(new Date(date));
 
   return (
-    <form onSubmit={handleSubmit(onSubmit(getValues, navigate))}>
-      <div className="flex flex-col gap-8">
-        <div className="flex flex-col md:gap-2 md:flex-row">
-          <Input control={control} name='firstName' style='md:w-[350px] w-full' label='Name' placeholder='First Name' required rules={{ required: 'First name required' }} />
-          <Input control={control} name='lastName' style='w-full' placeholder='Last Name' required rules={{ required: 'Last name required' }} />
-        </div>
-        <Input control={control} name='phone' style='w-full' label='Phone' />
-        <Input control={control} name='email' style='w-full' label='Email' required rules={{ required: 'Email required', pattern: {
-            value: /\S+@\S+\.\S+/,
-            message: "Your email address is invalid"
-          } }} />
-        <div className="flex items-start py-4">
-          {isValid && <Button type='submit' title="Continue Appointment >>" />}
-        </div>
+    <div className="px-5">
+      <div className="flex flex-col items-start mb-9">
+        <p className="font-semibold">{sessionType} {formattedDate} {time}</p>
+        <p onClick={onBack(navigate)} className="text-green-500 underline cursor-pointer">Change</p>
       </div>
-    </form>
+      <form onSubmit={handleSubmit(onSubmit(dispatch, getValues, navigate))}>
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-col md:gap-2 md:flex-row">
+            <Input control={control} name='firstName' style='md:w-[350px] w-full' label='Name' placeholder='First Name' required rules={{ required: 'First name required' }} />
+            <Input control={control} name='lastName' style='w-full' placeholder='Last Name' required rules={{ required: 'Last name required' }} />
+          </div>
+          <Input control={control} name='phone' style='w-full' label='Phone' />
+          <Input control={control} name='email' style='w-full' label='Email' required rules={{ required: 'Email required', pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: "Your email address is invalid"
+            } }} />
+          <div className="flex items-start py-4">
+            {isValid && <Button type='submit' title="Continue Appointment >>" />}
+          </div>
+        </div>
+      </form>
+    </div>
   )
 }
 

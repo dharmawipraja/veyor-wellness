@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Tabs, Tab } from '../components/Tabs';
 import Appointment from './Appointment';
 import UserInformation from './UserInformation';
+import Confirmation from './Confirmation';
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState('Choose Appointment');
@@ -26,7 +27,7 @@ const Home = () => {
         </Tab>
         <Tab label="Confirmation">
           <div className="py-4">
-            <h2 className="mb-2 text-lg font-medium">Confirmation Content</h2>
+            <Confirmation navigate={handleNavigate} />
           </div>
         </Tab>
       </Tabs>
