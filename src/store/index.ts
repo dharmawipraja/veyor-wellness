@@ -1,11 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import sessionReducer from './sessionSlice';
 import appointmentReducer from './appointmentSlice';
 
 export const store = configureStore({
   reducer: {
-    session: sessionReducer,
     appointment: appointmentReducer,
   }
 })

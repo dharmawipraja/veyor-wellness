@@ -3,8 +3,8 @@ import Card from "./Card";
 import { SessionType } from "../types";
 import { SESSIONS } from "../fixtures/appointmentData";
 import { AppDispatch } from "../store";
-import { saveSession } from "../store/sessionSlice";
 import { useAppDispatch } from "../hooks/useAppReducer";
+import { saveSession } from "../store/appointmentSlice";
 
 type SetDropdown = React.Dispatch<React.SetStateAction<boolean>>;
 type Props = {

@@ -8,7 +8,7 @@ import Button from "../components/Button";
 import SessionDropdown from "../components/SessionDropdown";
 import { useAppDispatch, useAppSelector } from "../hooks/useAppReducer";
 import { AppDispatch } from "../store";
-import { saveSession } from "../store/sessionSlice";
+import { saveSession } from "../store/appointmentSlice";
 
 type Props = {
   navigate: (newActiveTab: string) => () => void
@@ -33,8 +33,7 @@ const renderSessionItem = (session: SessionType, dispatch: AppDispatch) => {
 
 const Appointment: React.FC<Props> = ({ navigate }) => {
   const dispatch = useAppDispatch()
-  const { sessionType } = useAppSelector(state => state.session)
-  const { date, time } = useAppSelector(state => state.appointment)
+  const { sessionType, date, time } = useAppSelector(state => state.appointment)
   const isValid = !!sessionType && !!date && !!time
 
   return (
