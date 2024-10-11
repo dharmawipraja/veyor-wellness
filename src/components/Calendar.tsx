@@ -1,48 +1,47 @@
-import { Dispatch, SetStateAction, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import DatePicker from "react-datepicker";
 import { SLOT_TIME } from '../fixtures/appointmentData';
 
 import "react-datepicker/dist/react-datepicker.css";
+import { useAppDispatch, useAppSelector } from '../hooks/useAppReducer';
+import { AppDispatch } from '../store';
+import { saveDate, saveTime } from '../store/appointmentSlice';
 
-type SetDate = Dispatch<SetStateAction<Date>>
-type SetTime = Dispatch<SetStateAction<string>>
 
-
-const onChange = (setSelectedDate: SetDate) => (date: Date | null) => {
-  date && setSelectedDate(date);
+const onChange = (dispatch: AppDispatch) => (date: Date | null) => {
+  date && dispatch(saveDate(date.toISOString()));
 };
 
-const onSelectTime = (value: string, setSelectedTime: SetTime) => () => {
-  setSelectedTime(value)
+const onSelectTime = (value: string, dispatch: AppDispatch) => () => {
+  dispatch(saveTime(value))
 }
 
-const renderRadioButton = (value: string, selectedTime: string, setSelectedTime: SetTime) => (
+const renderRadioButton = (value: string, selectedTime: string, dispatch: AppDispatch) => (
   <label key={value} className='flex gap-2'>
-    <input type="radio" value={value} checked={value === selectedTime} onChange={onSelectTime(value, setSelectedTime)} />
+    <input type="radio" value={value} checked={value === selectedTime} onChange={onSelectTime(value, dispatch)} />
     {value}
   </label>
 )
 
 const Calendar = () => {
-  const currentDate = new Date();
-  const [selectedDate, setSelectedDate] = useState(currentDate);
-  const [selectedTime, setSelectedTime] = useState('');
+  const { date, time } = useAppSelector(state => state.appointment);
+  const dispatch = useAppDispatch();
 
   const renderCalendar = useMemo(() => (
     <DatePicker
-        selected={selectedDate}
-        onChange={onChange(setSelectedDate)}
-        minDate={currentDate}
+        selected={new Date(date)}
+        onChange={onChange(dispatch)}
+        minDate={new Date()}
         inline
       />
-  ), [selectedDate])
+  ), [date])
 
   const renderTime = useMemo(() => (
     <div className='flex flex-col items-start justify-start'>
       <p className='my-5 font-bold'>Please select a time</p>
-      {SLOT_TIME.map(value => renderRadioButton(value, selectedTime, setSelectedTime))}
+      {SLOT_TIME.map(value => renderRadioButton(value, time, dispatch))}
     </div>
-  ), [selectedTime])
+  ), [time])
 
   return (
     <div className='py-8'>

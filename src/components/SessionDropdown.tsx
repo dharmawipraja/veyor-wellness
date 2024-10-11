@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import Card from "./Card";
 import { SessionType } from "../types";
 import { SESSIONS } from "../fixtures/appointmentData";
+import { AppDispatch } from "../store";
+import { saveSession } from "../store/sessionSlice";
+import { useAppDispatch } from "../hooks/useAppReducer";
 
-type SetSelectedData = React.Dispatch<React.SetStateAction<string>>;
 type SetDropdown = React.Dispatch<React.SetStateAction<boolean>>;
 type Props = {
   data: SessionType[]
   selectedData: string;
-  setSelectedData: SetSelectedData
 }
 
 const openDropdown = (setIsDropdownOpen: SetDropdown) => () => {
@@ -17,16 +18,17 @@ const openDropdown = (setIsDropdownOpen: SetDropdown) => () => {
 
 const onSelect = (
   item: string,
-  setSelectedData: SetSelectedData,
+  dispatch: AppDispatch,
   setIsDropdownOpen: SetDropdown
 ) => {
   return () => {
-    setSelectedData(item);
+    dispatch(saveSession(item));
     setIsDropdownOpen(false);
   };
 };
 
-const SessionDropdown: React.FC<Props> = ({ data, selectedData, setSelectedData }) => {
+const SessionDropdown: React.FC<Props> = ({ data, selectedData }) => {
+  const dispatch = useAppDispatch()
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const label = SESSIONS.find(session => session.name === selectedData);
 
@@ -42,7 +44,7 @@ const SessionDropdown: React.FC<Props> = ({ data, selectedData, setSelectedData 
               {data.map((item: SessionType) => (
                 <li
                   key={item.name}
-                  onClick={onSelect(item.name, setSelectedData, setIsDropdownOpen)}
+                  onClick={onSelect(item.name, dispatch, setIsDropdownOpen)}
                   className="flex flex-col items-start w-full gap-2 p-4 transition-all duration-200 rounded hover:bg-gray-200">
                   <p className="font-semibold">{item.name}</p>
                   <span>{item.duration} @ ${item.price}</span>

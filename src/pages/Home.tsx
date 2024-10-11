@@ -4,8 +4,8 @@ import Appointment from './Appointment';
 import UserInformation from './UserInformation';
 
 const Home = () => {
-  // const [activeTab, setActiveTab] = useState('Choose Appointment');
-  const [activeTab, setActiveTab] = useState('Your Info');
+  const [activeTab, setActiveTab] = useState('Choose Appointment');
+  // const [activeTab, setActiveTab] = useState('Your Info');
 
   const handleNavigate = (newActiveTab: string) => () => {
     setActiveTab(newActiveTab);
