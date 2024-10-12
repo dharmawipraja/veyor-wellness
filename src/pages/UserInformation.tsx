@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/useAppReducer";
 import { formatDate } from "../utils/date";
 import { AppDispatch } from "../store";
 import { saveUserInfo } from "../store/userInfoSlice";
-import { saveBookedTime } from "../utils/storage";
+import { saveBookedTime } from "../utils/appointment";
 
 type Navigate = (newActiveTab: string) => () => void;
 type Props = {
