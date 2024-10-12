@@ -1,12 +1,13 @@
 import { useMemo } from 'react'
 import DatePicker from "react-datepicker";
+import { addMonths } from "date-fns/addMonths";
 
-import "react-datepicker/dist/react-datepicker.css";
 import { useAppDispatch, useAppSelector } from '../hooks/useAppReducer';
 import { AppDispatch } from '../store';
 import { saveDate, saveTime } from '../store/appointmentSlice';
 import { getAvailableSlot } from '../utils/appointment';
 
+import "../css/datepicker.css";
 
 const onChange = (dispatch: AppDispatch) => (date: Date | null) => {
   date && dispatch(saveDate(date.toISOString()));
@@ -27,14 +28,20 @@ const Calendar = () => {
   const { date, time } = useAppSelector(state => state.appointment);
   const dispatch = useAppDispatch();
   const availableSlot = getAvailableSlot(date)
+  const currentDate = new Date()
 
   const renderCalendar = useMemo(() => (
-    <DatePicker
+    <div>
+      <DatePicker
         selected={new Date(date)}
         onChange={onChange(dispatch)}
-        minDate={new Date()}
+        minDate={currentDate}
+        maxDate={addMonths(currentDate, 12)}
+        dateFormatCalendar={"MMMM yyyy"}
+        showMonthYearDropdown
         inline
       />
+    </div>
   ), [date])
 
   const renderTime = useMemo(() => (
