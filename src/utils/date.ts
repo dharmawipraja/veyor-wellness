@@ -1,36 +1,46 @@
-const MONTH: Record<string, number> = {
-  "January": 0,
-  "February": 1,
-  "March": 2,
-  "April": 3,
-  "May": 4,
-  "June": 5,
-  "July": 6,
-  "August": 7,
-  "September": 8,
-  "October": 9,
-  "November": 10,
-  "December": 11,
+const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+export const getMonthIndex = (month: string) => MONTHS.indexOf(month)
+
+export const getMonthName = (date: Date) => MONTHS[date.getMonth()];
+
+export const addMonths = (date: Date, months: number = 12) => {
+  const newDate = new Date(date);
+  newDate.setMonth(newDate.getMonth() + months + 1);
+
+  newDate.setDate(0); // This sets the date to the last day of the month
+
+  return newDate;
 }
 
-export const mapMonth = (month: string) => MONTH[month]
-
-export const getAvailableMonth = () => {
+export const generateMonthYear = (max: number = 12) => {
   const result = [];
-  const today = new Date();
+  const currentDate = new Date();
   
-  today.setMonth(today.getMonth() + 0);
-  
-  for (let i = 0; i <= 12; i++) {
-    const month = today.toLocaleString('default', { month: 'long' });
-    const year = today.getFullYear();
-    result.push(`${month} ${year}`);
-    
-    today.setMonth(today.getMonth() + 1);
+  for (let i = 0; i <= max; i++) {
+      const monthIndex = currentDate.getMonth() + i; // Get current month index and add i
+      const year = currentDate.getFullYear() + Math.floor(monthIndex / 12); // Calculate year
+      const month = new Date(currentDate.getFullYear(), monthIndex % 12).toLocaleString('default', { month: 'long' }); // Get month name
+
+      result.push(`${month} ${year}`); // Push formatted string into the result array
   }
   
   return result;
 }
+
 
 export const formatDate = (date: any, withDayName: boolean = false) => {
   const parts = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', weekday: 'long', day: 'numeric'}).formatToParts(date);
