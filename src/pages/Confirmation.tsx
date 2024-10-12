@@ -10,11 +10,11 @@ type Props = {
 }
 
 const onChangeAppointment = (navigate: Navigate) => () => {
-  navigate('Choose Appointment')
+  navigate('Choose Appointment')()
 }
 
 const onCreateNewAppointment = (navigate: Navigate) => () => {
-  navigate('Choose Appointment')
+  navigate('Choose Appointment')()
 }
 
 const Confirmation: React.FC<Props> = ({ navigate }) => {

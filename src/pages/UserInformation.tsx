@@ -5,7 +5,8 @@ import { useForm, UseFormGetValues } from "react-hook-form"
 import { useAppDispatch, useAppSelector } from "../hooks/useAppReducer";
 import { formatDate } from "../utils/date";
 import { AppDispatch } from "../store";
-import { saveuserInfo } from "../store/userInfoSlice";
+import { saveUserInfo } from "../store/userInfoSlice";
+import { saveBookedTime } from "../utils/storage";
 
 type Navigate = (newActiveTab: string) => () => void;
 type Props = {
@@ -18,10 +19,11 @@ type Inputs = {
   email: string;
 }
 
-const onSubmit = (dispatch: AppDispatch, getValues: UseFormGetValues<Inputs>, navigate: Navigate) => () => {
+const onSubmit = (dispatch: AppDispatch, getValues: UseFormGetValues<Inputs>, navigate: Navigate, date: string, time: string) => () => {
   const data = getValues();
 
-  dispatch(saveuserInfo(data))
+  dispatch(saveUserInfo(data))
+  saveBookedTime(date, time)
   navigate('Confirmation')()
 }
 
@@ -54,7 +56,7 @@ const UserInformation: React.FC<Props> = ({ navigate }) => {
         <p className="font-semibold">{sessionType} {formattedDate} {time}</p>
         <p onClick={onBack(navigate)} className="text-green-500 underline cursor-pointer">Change</p>
       </div>
-      <form onSubmit={handleSubmit(onSubmit(dispatch, getValues, navigate))}>
+      <form onSubmit={handleSubmit(onSubmit(dispatch, getValues, navigate, date, time))}>
         <div className="flex flex-col gap-8">
           <div className="flex flex-col md:gap-2 md:flex-row">
             <Input control={control} name='firstName' style='md:w-[350px] w-full' label='Name' placeholder='First Name' required rules={{ required: 'First name required' }} />

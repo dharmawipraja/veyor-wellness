@@ -1,11 +1,11 @@
 import { useMemo } from 'react'
 import DatePicker from "react-datepicker";
-import { SLOT_TIME } from '../fixtures/appointmentData';
 
 import "react-datepicker/dist/react-datepicker.css";
 import { useAppDispatch, useAppSelector } from '../hooks/useAppReducer';
 import { AppDispatch } from '../store';
 import { saveDate, saveTime } from '../store/appointmentSlice';
+import { getAvailableSlot } from '../utils/appointment';
 
 
 const onChange = (dispatch: AppDispatch) => (date: Date | null) => {
@@ -26,6 +26,7 @@ const renderRadioButton = (value: string, selectedTime: string, dispatch: AppDis
 const Calendar = () => {
   const { date, time } = useAppSelector(state => state.appointment);
   const dispatch = useAppDispatch();
+  const availableSlot = getAvailableSlot(date)
 
   const renderCalendar = useMemo(() => (
     <DatePicker
@@ -39,9 +40,9 @@ const Calendar = () => {
   const renderTime = useMemo(() => (
     <div className='flex flex-col items-start justify-start'>
       <p className='my-5 font-bold'>Please select a time</p>
-      {SLOT_TIME.map(value => renderRadioButton(value, time, dispatch))}
+      {availableSlot.map(value => renderRadioButton(value, time, dispatch))}
     </div>
-  ), [time])
+  ), [date, time])
 
   return (
     <div className='py-8'>

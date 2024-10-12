@@ -18,12 +18,12 @@ export const userInfoSlice = createSlice({
   name: 'appointment',
   initialState,
   reducers: {
-    saveuserInfo: (state, action) => {
+    saveUserInfo: (state, action) => {
       return { ...state, ...action.payload }
     },
   }
 })
 
-export const { saveuserInfo } = userInfoSlice.actions
+export const { saveUserInfo } = userInfoSlice.actions
 
 export default userInfoSlice.reducer
