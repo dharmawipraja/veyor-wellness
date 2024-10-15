@@ -9,6 +9,7 @@
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "jest",
+    "test:update": "jest -u",
     "format": "prettier --write ./src"
   },
   "dependencies": {
