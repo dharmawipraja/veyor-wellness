@@ -1,8 +1,8 @@
-import './App.css'
+import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 
-import Home from './pages/Home'
+import Home from './pages/Home';
 import MainLayout from './components/MainLayout';
 import { store } from './store';
 
@@ -17,7 +17,7 @@ function App() {
         </Routes>
       </Router>
     </Provider>
-  )
+  );
 }
 
-export default App
+export default App;

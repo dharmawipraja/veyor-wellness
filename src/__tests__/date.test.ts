@@ -8,18 +8,18 @@ import {
 
 describe('Date Utility Functions', () => {
   test('getMonthIndex should return the correct index for a given month', () => {
-    expect(getMonthIndex("January")).toBe(0);
-    expect(getMonthIndex("February")).toBe(1);
-    expect(getMonthIndex("December")).toBe(11);
-    expect(getMonthIndex("InvalidMonth")).toBe(-1);
+    expect(getMonthIndex('January')).toBe(0);
+    expect(getMonthIndex('February')).toBe(1);
+    expect(getMonthIndex('December')).toBe(11);
+    expect(getMonthIndex('InvalidMonth')).toBe(-1);
   });
 
   test('getMonthName should return the correct month name for a given date', () => {
     const date = new Date(2023, 0, 1);
-    expect(getMonthName(date)).toBe("January");
-    
+    expect(getMonthName(date)).toBe('January');
+
     const date2 = new Date(2023, 11, 1);
-    expect(getMonthName(date2)).toBe("December");
+    expect(getMonthName(date2)).toBe('December');
   });
 
   test('addMonths should correctly add months to a date', () => {
@@ -38,7 +38,7 @@ describe('Date Utility Functions', () => {
 
   test('formatDate should return formatted date strings', () => {
     const date = new Date(2023, 0, 1);
-    expect(formatDate(date)).toBe("January, 1 2023");
-    expect(formatDate(date, true)).toBe("Sunday, January, 1 2023");
+    expect(formatDate(date)).toBe('January, 1 2023');
+    expect(formatDate(date, true)).toBe('Sunday, January, 1 2023');
   });
 });

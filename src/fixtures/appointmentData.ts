@@ -1,4 +1,4 @@
-import { SessionType } from "../types"
+import { SessionType } from '../types';
 
 export const SESSIONS: SessionType[] = [
   {
@@ -16,7 +16,7 @@ export const SESSIONS: SessionType[] = [
     duration: '30 minutes',
     price: 45,
   },
-]
+];
 
 export const SLOT_TIME = [
   '10:00am',
@@ -32,4 +32,4 @@ export const SLOT_TIME = [
   '3:00pm',
   '3:30pm',
   '4:00pm',
-]
+];
