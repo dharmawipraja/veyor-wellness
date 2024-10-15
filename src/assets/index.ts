@@ -1,5 +1,3 @@
-import QRImage from './qr.png'
+import QRImage from './qr.png';
 
-export {
-  QRImage
-}
+export { QRImage };

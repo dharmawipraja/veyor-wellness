@@ -21,10 +21,7 @@ const Tabs: React.FC<TabsProps> = ({ children, activeTab }) => {
               : 'tab__item';
 
           return (
-            <div
-              key={child.props.label}
-              className={`sm:w-48 ${isActiveStyle}`}
-            >
+            <div key={child.props.label} className={`sm:w-48 ${isActiveStyle}`}>
               {child.props.label}
             </div>
           );

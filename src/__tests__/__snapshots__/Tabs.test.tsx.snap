@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tabs Component should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="mx-auto max-w-prose"
+  >
+    <div
+      class="tab"
+    >
+      <div
+        class="sm:w-48 tab__item"
+      >
+        Tab 1
+      </div>
+      <div
+        class="sm:w-48 tab__item is-active"
+      >
+        Tab 2
+      </div>
+      <div
+        class="sm:w-48 tab__item"
+      >
+        Tab 3
+      </div>
+    </div>
+    <div
+      class="py-4"
+    >
+      <div>
+        Content for Tab 2
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

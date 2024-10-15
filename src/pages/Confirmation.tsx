@@ -53,8 +53,8 @@ const Confirmation: React.FC<Props> = ({ navigate }) => {
           Get the mobile app by opening the camera on your phone, and scanning
           this QR code:
         </p>
-        <div className='flex justify-center w-full'>
-          <div className='w-1/2 h-1/2'>
+        <div className="flex justify-center w-full">
+          <div className="w-1/2 h-1/2">
             <img src={QRImage} loading="lazy" />
           </div>
         </div>
