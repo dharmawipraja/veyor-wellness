@@ -1,9 +1,11 @@
 import React from 'react';
-import { useAppSelector } from '../hooks/useAppReducer';
+import { useAppDispatch, useAppSelector } from '../hooks/useAppReducer';
 import { formatDate } from '../utils/date';
 import { getDetailSession } from '../utils/session';
 import Button from '../components/Button';
 import { QRImage } from '../assets';
+import type { AppDispatch } from '../store';
+import { resetAppointment } from '../store/appointmentSlice';
 
 type Navigate = (newActiveTab: string) => () => void;
 type Props = {
@@ -14,11 +16,14 @@ const onChangeAppointment = (navigate: Navigate) => () => {
   navigate('Choose Appointment')();
 };
 
-const onCreateNewAppointment = (navigate: Navigate) => () => {
-  navigate('Choose Appointment')();
-};
+const onCreateNewAppointment =
+  (navigate: Navigate, dispatch: AppDispatch) => () => {
+    dispatch(resetAppointment());
+    navigate('Choose Appointment')();
+  };
 
 const Confirmation: React.FC<Props> = ({ navigate }) => {
+  const dispatch = useAppDispatch();
   const { sessionType, date, time } = useAppSelector(
     (state) => state.appointment
   );
@@ -42,7 +47,7 @@ const Confirmation: React.FC<Props> = ({ navigate }) => {
         <Button
           title="Schedule another Appointment"
           variant="SECONDARY"
-          onClick={onCreateNewAppointment(navigate)}
+          onClick={onCreateNewAppointment(navigate, dispatch)}
         />
       </div>
       <div className="flex flex-col items-start flex-1 sm:mt-0 mt-5 border-l-[1px] border-l-gray-300 pl-5 gap-3">

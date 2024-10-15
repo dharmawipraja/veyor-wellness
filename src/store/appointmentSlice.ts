@@ -25,9 +25,11 @@ export const appointmentSlice = createSlice({
     saveTime: (state, action) => {
       state.time = action.payload;
     },
+    resetAppointment: () => initialState,
   },
 });
 
-export const { saveSession, saveDate, saveTime } = appointmentSlice.actions;
+export const { saveSession, saveDate, saveTime, resetAppointment } =
+  appointmentSlice.actions;
 
 export default appointmentSlice.reducer;
