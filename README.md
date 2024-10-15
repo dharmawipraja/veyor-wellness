@@ -2,7 +2,7 @@
 
 Booking system for Veyor Wellness, a spa where you can enjoy a relaxing treatment of your choice.
 
-Demo: 
+Demo: https://veyor-wellness-indol.vercel.app/
 
 ### How to run this demo
 
