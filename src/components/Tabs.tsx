@@ -23,7 +23,7 @@ const Tabs: React.FC<TabsProps> = ({ children, activeTab }) => {
           return (
             <div
               key={child.props.label}
-              className={`sm:w-48 w-36 ${isActiveStyle}`}
+              className={`sm:w-48 ${isActiveStyle}`}
             >
               {child.props.label}
             </div>
