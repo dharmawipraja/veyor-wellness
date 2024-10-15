@@ -35,7 +35,6 @@ const renderCalendarHeader = ({
   prevMonthButtonDisabled,
   nextMonthButtonDisabled,
 }: ReactDatePickerCustomHeaderProps) => {
-  console.log('renderCalendarHeader')
   const months = generateMonthYear(MAX_MONTH);
 
   return (
@@ -76,8 +75,6 @@ const Calendar = () => {
   const currentDate = new Date()
 
   const renderCalendar = useMemo(() => {
-    console.log('renderCalendar')
-
     return (
       <div>
         <DatePicker
@@ -94,8 +91,6 @@ const Calendar = () => {
   }, [date])
 
   const renderTime = useMemo(() => {
-    console.log('renderTime')
-
     return (
       <div className='flex flex-col items-start justify-start'>
         <p className='my-5 font-bold'>Please select a time</p>
