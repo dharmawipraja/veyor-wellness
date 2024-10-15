@@ -48,6 +48,7 @@ const Confirmation: React.FC<Props> = ({ navigate }) => {
           title="Schedule another Appointment"
           variant="SECONDARY"
           onClick={onCreateNewAppointment(navigate, dispatch)}
+          withIcon
         />
       </div>
       <div className="flex flex-col items-start flex-1 sm:mt-0 mt-5 border-l-[1px] border-l-gray-300 pl-5 gap-3">

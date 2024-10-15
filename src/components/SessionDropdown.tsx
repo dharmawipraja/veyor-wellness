@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { FaAngleDown } from 'react-icons/fa';
+
 import Card from './Card';
 import { SessionType } from '../types';
 import { SESSIONS } from '../fixtures/appointmentData';
@@ -35,10 +37,15 @@ const SessionDropdown: React.FC<Props> = ({ data, selectedData }) => {
   return (
     <div>
       <Card onClick={openDropdown(setIsDropdownOpen)}>
-        <p className="font-semibold">{label?.name}</p>
-        <span>
-          {label?.duration} @ ${label?.price.toFixed(0)}
-        </span>
+        <div className="flex items-center justify-between w-full">
+          <div className="flex flex-col items-start">
+            <p className="font-semibold">{label?.name}</p>
+            <span>
+              {label?.duration} @ ${label?.price.toFixed(0)}
+            </span>
+          </div>
+          <FaAngleDown />
+        </div>
       </Card>
       {isDropdownOpen && (
         <div className="absolute z-10 translate-y-6 bg-white border border-gray-300 rounded max-w-prose md:w-full">

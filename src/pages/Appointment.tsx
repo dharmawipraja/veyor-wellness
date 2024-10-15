@@ -41,17 +41,21 @@ const Appointment: React.FC<Props> = ({ navigate }) => {
   const isValid = !!sessionType && !!date && !!time;
 
   return (
-    <div className="flex flex-col gap-3">
-      {!sessionType ? (
-        SESSIONS.map((session) => renderSessionItem(session, dispatch))
-      ) : (
-        <SessionDropdown data={SESSIONS} selectedData={sessionType} />
-      )}
-      {sessionType && <Calendar />}
-      {isValid && (
-        <Button title="Continue >>" onClick={navigate('Your Info')} />
-      )}
-    </div>
+    <>
+      <div className="flex flex-col gap-3">
+        {!sessionType ? (
+          SESSIONS.map((session) => renderSessionItem(session, dispatch))
+        ) : (
+          <SessionDropdown data={SESSIONS} selectedData={sessionType} />
+        )}
+        {sessionType && <Calendar />}
+      </div>
+      <div className="flex items-start">
+        {isValid && (
+          <Button title="Continue" onClick={navigate('Your Info')} withIcon />
+        )}
+      </div>
+    </>
   );
 };
 

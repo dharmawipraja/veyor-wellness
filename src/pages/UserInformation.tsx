@@ -1,4 +1,6 @@
 import React from 'react';
+import { FaAngleDoubleLeft } from 'react-icons/fa';
+
 import Button from '../components/Button';
 import Input from '../components/Input';
 import { useForm, UseFormGetValues } from 'react-hook-form';
@@ -68,8 +70,9 @@ const UserInformation: React.FC<Props> = ({ navigate }) => {
         </p>
         <p
           onClick={onBack(navigate)}
-          className="text-green-500 underline cursor-pointer"
+          className="flex items-center gap-2 text-green-500 underline cursor-pointer"
         >
+          <FaAngleDoubleLeft />
           Change
         </p>
       </div>
@@ -115,7 +118,7 @@ const UserInformation: React.FC<Props> = ({ navigate }) => {
           />
           <div className="flex items-start py-4">
             {isValid && (
-              <Button type="submit" title="Continue Appointment >>" />
+              <Button type="submit" title="Continue Appointment" withIcon />
             )}
           </div>
         </div>
